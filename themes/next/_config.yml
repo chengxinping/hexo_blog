@@ -45,8 +45,8 @@ index_with_subtitle: false
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
   home: /
-  #categories: /categories/
-  #about: /about/
+  categories: /categories/
+  about: /about/
   archives: /archives/
   tags: /tags/
   #sitemap: /sitemap.xml
@@ -282,7 +282,7 @@ custom_logo:
 # Available value:
 #    normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night
 
 
 # ---------------------------------------------------------------
@@ -317,8 +317,8 @@ disqus:
 # Hypercomments
 #hypercomments_id:
 
-# Gentie productKey
-#gentie_productKey:
+#Gentie productKey
+gentie_productKey:498f5728f8a44c20aad8fb3986cffed0
 
 # changyan
 changyan:
@@ -332,7 +332,7 @@ changyan:
 
 # Support for LiveRe comments system.
 # You can get your uid from https://livere.com/insight/myCode (General web site)
-#livere_uid: your uid
+#livere_uid: 498f5728f8a44c20aad8fb3986cffed0
 
 # Baidu Share
 # Available value:

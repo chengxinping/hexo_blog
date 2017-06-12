@@ -1,7 +1,8 @@
 ---
 title: 76款最新的Android开源项目
 date: 2017-06-12 14:44:44
-tags:
+tags: [Android, 干货分享, 开源项目]
+categories: Android干货分享
 ---
 
 [知乎专栏App](https://github.com/bxbxbai/ZhuanLan "知乎专栏App")

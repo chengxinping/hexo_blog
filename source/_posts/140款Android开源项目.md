@@ -1,7 +1,8 @@
 ---
 title: 140款Android开源项目
 date: 2017-06-12 14:44:36
-tags:
+tags: [Android, 干货分享, 开源项目]
+categories: Android干货分享
 ---
 
 BeautifulRefreshLayout-漂亮的美食下拉刷新
