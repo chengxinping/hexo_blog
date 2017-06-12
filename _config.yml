@@ -71,3 +71,4 @@ deploy:
   type: git
   repo: ubuntu@119.29.180.219:/var/repo/hexo_static
   branch: master
+

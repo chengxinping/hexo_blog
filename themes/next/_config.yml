@@ -322,9 +322,9 @@ disqus:
 
 # changyan
 changyan:
-  enable: false
-  appid:
-  appkey:
+  enable: true
+  appid: cyt3Kr5Ts
+  appkey: d42131257743cd9ddad87ac4ed87e356
 
 # Support for youyan comments system.
 # You can get your uid from http://www.uyan.cc
@@ -338,7 +338,7 @@ changyan:
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-#baidushare:
+baidushare: true
 ##  type: button
 
 # Share
@@ -415,9 +415,9 @@ rating:
 # Show number of visitors to each article.
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
-  enable: false
-  app_id: #<app_id>
-  app_key: #<app_key>
+  enable: true
+  app_id: gaPYF7VkY5EMTtSktgFIf9Tg-gzGzoHsz
+  app_key: 7JlIYMSBVO088lvyGNRleHuX
 
 # Show PV/UV of the website/page with busuanzi.
 # Get more information on http://ibruce.info/2015/04/04/busuanzi/
@@ -478,7 +478,9 @@ algolia_search:
 
 # Local search
 local_search:
-  enable: false
+  enable: true
+  field: post
+  limit: 10000
   # if auto, trigger search by changing input
   # if manual, trigger search by pressing enter key or search button
   trigger: auto
