@@ -13,6 +13,9 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="{{ page.lang || page.language || config.language }}">
 
+
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
   {% include '_third-party/analytics/index.swig' %}
 
   {% set container_class = "container " %}
@@ -22,7 +25,9 @@
 
   <div class="{{ container_class }} {% block page_class %}{% endblock %} ">
     <div class="headband"></div>
-
+	
+	
+	
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"> {%- include '_partials/header.swig' %} </div>
     </header>
@@ -83,3 +88,6 @@
   {% include '_third-party/exturl.swig' %}
 </body>
 </html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

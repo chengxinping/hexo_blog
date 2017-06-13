@@ -14,7 +14,7 @@ keywords: "Hexo, NexT"
 rss:
 
 # Specify the date when the site was setup
-since: 2017
+since: 1995
 
 # icon between year and author @Footer
 authoricon: heart
@@ -42,7 +42,7 @@ index_with_subtitle: false
 # Menu Settings
 # ---------------------------------------------------------------
 
-reward_comment: 坚持技术分享，您的支持将鼓励我继续分享！
+reward_comment: 坚持技术分享，您的支持将鼓励我继续创作分享！
 wechatpay: /wechatpay.png
 alipay: /alipay.jpg
 
@@ -54,7 +54,7 @@ menu:
   tags: /tags/
   about: /about/
   resume: /
-  commonweal: /404.html
+  #commonweal: /404.html
   #sitemap: /sitemap.xml
 
 # Enable/Disable menu icons.
@@ -171,7 +171,7 @@ social_icons:
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg
 # in site  directory(source/uploads): /uploads/avatar.jpg
-#avatar:
+avatar: /images/avatar.jpg
 
 
 # Table Of Contents in the Sidebar
@@ -256,8 +256,8 @@ post_meta:
 # Dependencies: https://github.com/willin/hexo-wordcount
 post_wordcount:
   item_text: true
-  wordcount: false
-  min2read: false
+  wordcount: true
+  min2read: true
   separated_meta: true
 
 # Wechat Subscriber
@@ -639,3 +639,7 @@ images: images
 
 # Theme version
 version: 5.1.1
+# 文章末尾添加“本文结束”标记
+passage_end_tag:
+  enabled: true
+  
