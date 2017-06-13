@@ -14,7 +14,7 @@ keywords: "Hexo, NexT"
 rss:
 
 # Specify the date when the site was setup
-since: 1995
+since: 2016
 
 # icon between year and author @Footer
 authoricon: heart
@@ -223,7 +223,10 @@ links_title: 友情链接
 #links_layout: block
 #links_layout: inline
 links:
-  BabyWolf的博客: http://babywolf.tk/
+  BabyWolf: http://babywolf.tk/
+  廖雪峰: http://www.liaoxuefeng.com/
+  张鸿洋: http://blog.csdn.net/lmj623565791
+  Android Developers: https://developer.android.com/index.html
   Next主页: https://hexo.io/
   Next主题: http://theme-next.iissnan.com/theme-settings.html
 # ---------------------------------------------------------------
