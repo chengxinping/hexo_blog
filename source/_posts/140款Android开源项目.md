@@ -13,7 +13,7 @@ Material Design-动画风格的选项卡tab切换功能
 
 TwinklingRefreshLayout-支持下拉刷新和上拉加载的RefreshLayout,自带越界回弹效果
 <a href="https://github.com/lcodecorex/TwinklingRefreshLayout" target="_blank">https://github.com/lcodecorex/TwinklingRefreshLayout</a>
-
+<!-- more -->
 DialogLoadding-Android开发之常用的loading等待效果实现，仿微博等待动画。两种实现方式详解
 <a href="https://github.com/QQ986945193/DialogLoadding" target="_blank">https://github.com/QQ986945193/DialogLoadding</a>
 

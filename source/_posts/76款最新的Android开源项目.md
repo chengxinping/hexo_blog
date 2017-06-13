@@ -12,7 +12,7 @@ categories: Android干货分享
 [GankMeizhi](https://github.com/xingrz/GankMeizhi "GankMeizhi")
 
 [Meizhi](https://github.com/drakeet/Meizhi "Meizhi")
-
+<!-- more -->
 [JianDan](https://github.com/ZhaoKaiQiang/JianDan "JianDan")
 
 [WeGit](https://github.com/Leaking/WeGit "WeGit")

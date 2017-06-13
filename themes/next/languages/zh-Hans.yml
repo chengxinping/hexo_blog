@@ -8,14 +8,15 @@ author: 博主
 
 menu:
   home: 首页
-  archives: 归档
+  archives: 全部
   categories: 分类
   tags: 标签
-  about: 关于
+  about: 关于我
   search: 搜索
   schedule: 日程表
   sitemap: 站点地图
   commonweal: 公益404
+  resume: 个人简历
 
 sidebar:
   overview: 站点概览
@@ -45,8 +46,8 @@ page:
   tags: 标签
 
 footer:
-  powered: "由 %s 强力驱动"
-  theme: 主题
+  powered: "远方啊，除了遥远，一无所有。"
+  theme: "  离开书店的时候，我留下了一把伞，希望拧着它回家的人，是你。"
 
 counter:
   tag_cloud:

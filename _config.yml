@@ -17,7 +17,19 @@ root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
-# Directory
+#RSS
+feed: 
+  type: atom  
+  path: atom.xml 
+  limit: 20
+
+#sitemap
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+  
+# Directory 
 source_dir: source
 public_dir: public
 tag_dir: tags
@@ -65,6 +77,11 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: next
 
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:

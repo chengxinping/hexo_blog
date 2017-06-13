@@ -13,7 +13,7 @@ categories: Android爬坑之旅
 
 <span lang="zh-CN"><img src="http://img.blog.csdn.net/20160705184621209" alt="" />
 </span>
-
+<!-- more -->
 <span lang="zh-CN">会发现菜单 无法展开 始终收缩在里面
 </span>
 
