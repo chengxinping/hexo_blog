@@ -67,10 +67,10 @@ menu_icons:
   #KeyMapsToMenuItemKey: NameOfTheIconFromFontAwesome
   home: home
   about: user
-  categories: th
+  categories: list
   schedule: calendar
   tags: tags
-  archives: archive
+  archives: book 
   sitemap: sitemap
   commonweal: heartbeat
   resume: user-circle
@@ -179,7 +179,7 @@ toc:
   enable: true
 
   # Automatically add list number to toc.
-  number: true
+  number: false
 
   # If true, all words will placed on next lines if header width longer then sidebar width.
   wrap: false
