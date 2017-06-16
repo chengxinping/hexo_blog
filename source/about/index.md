@@ -1,9 +1,9 @@
 ---
 title: 
 date: 2017-06-12 16:57:25
-comments: false
+comments: true
 ---
-<center>![Alt text](/img/1491615552980.jpg)</center>
+<center>![Alt text](/img/about_me.jpg)</center>
 <center>*远方啊，除了遥远，一无所有。*</center>
 
 ## 关于我

@@ -69,7 +69,6 @@
           {% endif %}
 
         </nav>
-
         {% if theme.rss %}
           <div class="feed-link motion-element">
             <a href="{{ url_for(theme.rss) }}" rel="alternate">
@@ -79,7 +78,6 @@
 			{% include 'high.swig' %}
           </div>
         {% endif %}
-
         <div class="links-of-author motion-element">
           {% if theme.social %}
             {% for name, link in theme.social %}
@@ -120,7 +118,7 @@
             </ul>
           </div>
         {% endif %}
-
+		
         {% include '../_custom/sidebar.swig' %}
 
       </section>
