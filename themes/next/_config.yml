@@ -202,8 +202,8 @@ sidebar:
   #  - always  expand for all pages automatically
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  Totally remove sidebar including sidebar toggle.
-  #display: post
-  display: always
+  display: post
+  #display: always
   #display: hide
   #display: remove
 
@@ -262,7 +262,6 @@ post_wordcount:
   item_text: true
   wordcount: true
   min2read: true
-  separated_meta: true
 
 # Wechat Subscriber
 #wechat_subscriber:
@@ -646,4 +645,3 @@ version: 5.1.1
 # 文章末尾添加“本文结束”标记
 passage_end_tag:
   enabled: true
-  
