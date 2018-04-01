@@ -53,7 +53,7 @@ menu:
   archives: /archives/
   tags: /tags/
   about: /about/
-  resume: /
+  resume: /resume/
   #commonweal: /404.html
   #sitemap: /sitemap.xml
 
@@ -82,8 +82,8 @@ menu_icons:
 # ---------------------------------------------------------------
 
 # Schemes
-#scheme: Muse
-scheme: Mist
+scheme: Muse
+#scheme: Mist
 #scheme: Pisces
 
 
