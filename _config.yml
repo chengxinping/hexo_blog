@@ -86,7 +86,7 @@ search:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: ubuntu@119.29.180.219:/var/repo/hexo_static
+  repo: git@github.com:chengxinping/chengxinping.github.io.git
   branch: master
 
 
@@ -94,13 +94,15 @@ live2d:
   enable: true
   scriptFrom: local
   model:
-    use: live2d-widget-model-hijiki
+    use: live2d-widget-model-tororo
+    scale: 0.8
   display:
     position: right
     width: 100
     height: 200
     vOffset: -50
   mobile:
-    show: false
+    show: true
+    scale: 0.05
   react:
     opacityDefault: 1
