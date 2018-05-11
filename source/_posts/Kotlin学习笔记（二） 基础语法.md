@@ -2,7 +2,7 @@
 title: Kotlin学习笔记（二） 基础语法
 date: 2017-06-27 10:06:17
 tags: [Kotlin]
-categories: Kotlin学习笔记
+categories: 真假
 copyright: true
 ---
 ### 2.1 变量与常量

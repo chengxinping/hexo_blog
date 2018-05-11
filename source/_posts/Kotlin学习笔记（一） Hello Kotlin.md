@@ -2,7 +2,7 @@
 title: Kotlin学习笔记（一） Hello Kotlin
 date: 2017-06-16 10:12:11
 tags: [Kotlin]
-categories: Kotlin学习笔记
+categories: 真假
 copyright: true
 ---
 ### 写在前面

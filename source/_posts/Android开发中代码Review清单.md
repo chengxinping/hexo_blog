@@ -2,7 +2,7 @@
 title: Android开发中代码Review清单
 date: 2017-10-29 21:33:00
 tags: [Android]
-categories: Android爬坑之旅
+categories: 真假
 copyright: true
 top: 100
 ---

@@ -2,10 +2,9 @@
 title: Android AirKiss介绍
 date: 2018-02-04 10:30:21
 tags: [Android, 干货分享, 开源项目]
-categories: Android干货分享
+categories: 真假
 copyright: true
 ---
-# AirKissDemo
 ### AirKiss原理
 > 本章只大致讲解一下什么是air kiss,具体通讯协议介绍请去文末链接查看
 #### 一、AirKiss简介
@@ -15,7 +14,8 @@ AirKiss技术是一种通过手机发送的SSID和密码经过路由转发出去
 2. 手机客户端通过AirKiss发送家里的路由器ssid和密码 
 3. wifi设备通过抓包获取到ssid和密码，然后连接到家里的路由器 
 <!-- more -->
-#### 三、Demo实现
+
+### Demo实现
 > demo通过`RxJava`实现异步任务 
 - 客户端发送wifi ssid 以及密码 关键代码
 ``` java
@@ -139,7 +139,7 @@ AirKiss技术是一种通过手机发送的SSID和密码经过路由转发出去
 ```
 > **注意：** 由于使用了`RxJava`，要在`onDestroy()`里面解除订阅，避免内存泄露
 
-#### 四、相关说明
+### 相关说明
 
 [Demo地址](https://github.com/chengxinping/AirKissDemo "AirKissDemo")
 

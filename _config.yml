@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 哎呦哥哥的床边故事
-subtitle: 远方啊，除了遥远，一无所有。
-description: 远方啊，除了遥远，一无所有。
+title: 大破坏日记
+subtitle: 多写真假，少谈人生。
+description: 多写真假，少谈人生。
 author: 哎呦哥哥
 language: zh-Hans
 timezone:
@@ -102,7 +102,7 @@ live2d:
     height: 200
     vOffset: -50
   mobile:
-    show: true
+    show: false
     scale: 0.05
   react:
     opacityDefault: 1
