@@ -23,9 +23,10 @@ copyright: true
 - 2016年蓝牙技术联盟提出了新的蓝牙技术标准，即蓝牙5.0版本。蓝牙5.0针对低功耗设备速度有相应提升和优化，结合wifi对室内位置进行辅助定位，提高传输速度，增加有效工作距离，主要是针对物联网方向的改进（目前市场上还未见到5.0的蓝牙设备）。
 <!-- more -->
 
-### 1.3 低功耗蓝牙的优缺点
+### 1.3 低功耗蓝牙与传统蓝牙的区别
 - 相较传统蓝牙，传输速度更快、覆盖范围广、安全性高、延时短、耗电低等特点。
 - 传统蓝牙一般是通过socket方式通讯，而低功耗蓝牙是通过Gatt协议来实现的。
+- 对于大文件传输只能通过传统蓝牙来实现。
 
 ### 1.4 Android上BLE发展
 &emsp;&emsp;在Android开发过程中，版本的碎片化一直是需要考虑的问题，再加上厂商定制及蓝牙本身也和Android一样一直在发展过程中，所以对于每一个版本支持什么功能，是我们需要知道的。
@@ -36,7 +37,7 @@ copyright: true
 - `Central Mode`： Android端作为中心设备，连接其他外设设备。
 - `Peripheral Mode`：Android端作为外设设备，被其他中心设备连接。在Android 5.0支持外设模式之后，才算实现了两台Android手机通过BLE进行相互通信。
 
-- `外设设备`：一般值得是用来提供数据、并连接到一个功能更强大的中心设备的一个简单的低功耗蓝牙设备,例如小米手环。
+- `外设设备`：一般值得是用来提供数据、并连接到一个功能更强大的中心设备的一个简单的低功耗蓝牙设备，例如小米手环。
 - `中心设备`：中心设备一般比较强大，用来连接其他一个或多个外围设备，比如我们的手机等。
 
 ---
@@ -44,7 +45,9 @@ copyright: true
 ## 2. BLE基础理论
 
 ### 2.1.1 什么是GAP
-&emsp;&emsp;了解蓝牙广播前先引入一个概念 `GAP`（Generic Access Profile），它用来控制设备的广播和连接,`GAP`使你的设备能被其他设备可见,并决定了你的设备是否可以或者怎么样与其他设备通讯交互。（例如标准的Beacon设备只能向外发射广播，不支持连接通讯,我们常见的BLE设备例如各种手环就可以与中心设备连接通讯）,更多关于`GAP`的介绍可以去[BLE Introduction](https://learn.adafruit.com/introduction-to-bluetooth-low-energy?view=all#gap)上查看。
+&emsp;&emsp;中心设备要想与外设设备通讯，得通过某种方式发现外设设备，这种方式就是蓝牙广播。
+
+&emsp;&emsp;了解蓝牙广播前先引入一个概念 `GAP`（Generic Access Profile），它用来控制设备的广播和连接，`GAP`使你的设备能被其他设备可见，并决定了你的设备是否可以或者怎么样与其他设备通讯交互。（例如标准的Beacon设备只能向外发射广播，不支持连接通讯，我们常见的BLE设备例如各种手环就可以与中心设备连接通讯），更多关于`GAP`的介绍可以去[BLE Introduction](https://learn.adafruit.com/introduction-to-bluetooth-low-energy?view=all#gap)上查看。
 
 &emsp;&emsp; 外设设备通过`GAP`向外广播时，广播包分为两部分:`Advertising Data Payload`和 `Scan Response Data Payload`，也就是广播数据包和扫描回复包，每个包里面的数据最多可以包含31`byte`。广播数据包是每个蓝牙设备必须的，因为只有外设设备不断向外广播，中心设备才能知道他的存在。而扫描回复包则是可选的，中心设备可以外设设备请求扫描回复，这里包含一些设备额外的信息，例如设备的名字。在`Android`中,系统会把这两个数据拼接在一起,给上层返回一个62byte的数组。Android APP开发者需要自己去手动解析这些广播数据，虽然Android 5.0中`ScanRecord` 这个类提供了如下方法：
 ```java 
@@ -54,7 +57,7 @@ public static ScanRecord parseFromBytes(byte[] scanRecord){
 ```
 会发现在实际代码中根本无法通过`ScanRecord.parseFromBytes(scanRecord)`得到实例，必须得查看源码自己写工具类解析广播数据。
 
-&emsp;&emsp; 那么蓝牙广播数据中有哪些数据类型呢？设备连接属性、标识设备支持的BLE模式（必须）、设备名称、设备保护的GATT service，或者Service data，厂商自定义数据等。外设设备会设定一个广播时间间隔,每个广播间隔中，它会重发一次广播数据包。间隔时间越长，外设设备也就越省点，同时也越不容易被其他设备扫描到。
+&emsp;&emsp; 那么蓝牙广播数据中有哪些数据类型呢？设备连接属性、标识设备支持的BLE模式（必须）、设备名称、设备保护的GATT service，或者Service data，厂商自定义数据等。外设设备会设定一个广播时间间隔，每个广播间隔中，它会重发一次广播数据包。间隔时间越长，外设设备也就越省电，同时也越不容易被其他设备扫描到。
 ### 2.1.2 GAP连接方式
 &emsp;&emsp;上面说到`GAP`决定了设备是否可以或者怎么样与其他设备通讯交互，答案是两种:
 - 完全基于广播的方式 
@@ -62,7 +65,7 @@ public static ScanRecord parseFromBytes(byte[] scanRecord){
   > 这种不需要连接，依赖于BLE广播的设备，也叫作Beacon。
 
 - 基于GATT连接的方式
-  > 大部分情况下,外设设备通过发送广播来让中心设备发现自己，并建立`GATT`(Generic Attribute Profile)连接，从而进行更多的数据交换。
+  > 大部分情况下，外设设备通过发送广播来让中心设备发现自己，并建立`GATT`(Generic Attribute Profile)连接，从而进行更多的数据交换。
   > GATT连接需要特别注意的是：这种连接是一对一的，是独占的。也就是说一个BLE设备同时只能与一个中心设备连接。一旦外设设备被连接，它马上就会停止向外发送广播，这样它对其他设备来说就是不可见的了。只有当它与连接的设备断开时才会重新对外发送广播。中心设备要与外设设备双向通讯的话，唯一的方式就是建立GATT连接。
   > GATT通讯的双方是C/S模式。外设设备作为Service端，中心设备作为Client端。所有的通讯事件，都是由客户端发起，并且接收服务端的响应。
 
@@ -87,14 +90,14 @@ public static ScanRecord parseFromBytes(byte[] scanRecord){
 > Profile其实并不是实际存在BLE设备中的，它只是被规则设定者预先定义的一个Service集合。比如比较常见的小米手环上的`心率Profile(Heart Rate Profile)`就是结合了Heart Rate Service和Device Information Service。官方有个约定GATT Profile列表可以在[这里](https://www.bluetooth.com/specifications/profiles-overview/archived-profiles)查看。
 
 - Service
-> Service是把数据分成一个个独立的逻辑项，它包含一个或多个Characteristic。每个Service都有一个UUID作为唯一标识。UUID有16bit和128bit两种(具体区别后面UUID模块说明)。官方定义了一些[标准Service](https://www.bluetooth.com/specifications/gatt/services)。还是以`Heart Rate`为例，官方定义的16bitUUID是`0x180D`，它包含3个Characteristic：Heart Rate Measurement, Body Sensor Location 和 Heart Rate Control Point。
+> Service是把数据分成一个个独立的逻辑项，它包含一个或多个Characteristic。每个Service都有一个UUID作为唯一标识。UUID有16bit和128bit两种(具体区别后面UUID模块说明)。官方定义了一些[标准Service](https://www.bluetooth.com/specifications/gatt/services)。还是以`Heart Rate`为例，官方定义的16bitUUID是`0x180D`，它包含3个Characteristic：Heart Rate Measurement， Body Sensor Location 和 Heart Rate Control Point。
 
 - Characteristic
 > Characteristic定义了数值和操作，包含一个Characteristic声明、Characteristic属性、值、值的描述（Optional）。通常我们说的BLE通讯，本质上就是对Characteristic的读写和订阅通知。比如在实际操作中，对某一个Characteristic进行读，实际上就是获取这个Characteristic的value。
 
 - Descriptors
 > 用于表达 特征 的其他附加信息，如特征值的有效范围，可读性描述等信息。
-> 其中包含了特殊的 CCCD（Client Characteristic Configuration Descriptor, Assigned Number : 0x2902）：
+> 其中包含了特殊的 CCCD（Client Characteristic Configuration Descriptor，Assigned Number : 0x2902）：
 > CCCD 可以设置 服务端 在对应特征值发生变化时，是否对 客户端 进行信息 推送（直接发送信息） 或 提示（发送一个提示并等待回复）。
 > 当特征包含通知能力时，CCCD为必选项。
 > 描述符相关内容可在[这里](https://www.bluetooth.com/specifications/gatt/descriptors)查看。
@@ -112,12 +115,12 @@ public static ScanRecord parseFromBytes(byte[] scanRecord){
 &emsp;&emsp;通过上面BLE的基础理论，我们可以分析得知，BLE通讯实际上是先通过客户端与服务端连接，拿到服务端的Characteristic进行两者间的数据交换。
 
 ### 3.1 Android手机与BLE设备通讯的大致流程
-1. 扫描并与指定的BLE设备进行连接（scan、connect）
-2. 连接成功后可以列出这个设备所包含的所有服务和特征，服务和特征是APP与设备进行交互的通道。
-3. 开启数据通道，这里的数据通道就相当于一个Characteristic，而具体开启哪一个或多个数据通道，需要根据BLE设备工程师提供协议文档来决定，如果没有协议文档就只能一个个自己调试了。
-4. 对指定的特征进行通知、读、写等操作。常用的操作是notify和wirte，前者是APP接收BLE发过来的数据，后者是APP向BLE设备发送数据。
-5. 一般BLE设备向手机发送的数据都16进制的数据包，需要自己解析，具体的解析规则BLE设备的工程师都会给一份协议文档的，看着解析就行了，到这里就完成了与BLE设备的通信了。
-6. 断开与BLE设备的连接。
+1. 扫描周围已打开蓝牙的BLE设备
+2. 扫描结束后在扫描的结果中选取一个符合条件的BLE设备，在APP扫描（BLE设备广播）的过程中，BLE设备会有以下几个属性用于辨别身份：蓝牙名、MAC、广播数据。
+3. 对选取的BLE设备进行连接。
+4. 连接成功后可以列出这个设备所包含的所有服务和特征，服务和特征是APP与设备进行交互的通道。
+5. 指定的特征进行通知、读、写等操作。常用的操作是notify和wirte，前者是APP接收BLE发过来的数据，后者是APP向BLE设备发送数据。
+6. APP与BLE设备断开连接。
 
 ### 3.2 Android BLE开发实践
 &emsp;&emsp; 前面的内容其实全部是关于BLE的理论知识，概念比较多，有些开发者在还没有了解过BLE的基础理论就开始开发，个人是不建议这种做法的，在前期没有足够了解BLE相关的知识，一旦当硬件开发那边对蓝牙也是一知半解时，遇到坑的几率会大很多（本人亲身经验）。
@@ -131,8 +134,8 @@ public static ScanRecord parseFromBytes(byte[] scanRecord){
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
-- android.permission.BLUETOOTH : 这个权限允许程序连接到已配对的蓝牙设备, 请求连接/接收连接/传输数据需要该权限, 主要用于对配对后进行操作;
-- android.permission.BLUETOOTH_ADMIN : 这个权限允许程序发现和配对蓝牙设备, 该权限用来管理蓝牙设备, 有了这个权限, 应用才能使用本机的蓝牙设备, 主要用于对配对前的操作;
+- android.permission.BLUETOOTH : 这个权限允许程序连接到已配对的蓝牙设备，请求连接/接收连接/传输数据需要该权限，主要用于对配对后进行操作;
+- android.permission.BLUETOOTH_ADMIN : 这个权限允许程序发现和配对蓝牙设备，该权限用来管理蓝牙设备，有了这个权限，应用才能使用本机的蓝牙设备，主要用于对配对前的操作;
 - android.permission.ACCESS_COARSE_LOCATION和android.permission.ACCESS_FINE_LOCATION：Android 6.0以后，这两个权限是必须的，蓝牙扫描周围的设备需要获取模糊的位置信息。这两个权限属于同一组危险权限，在清单文件中声明之后，还需要再运行时动态获取。
 
 一般在程序开始或者开始使用蓝牙的时候得先判断当前Android设备是否支持蓝牙(前文有说Android4.3才开始支持BLE)
@@ -143,7 +146,7 @@ if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
     Log.d(TAG, "不支持BLE");
 }
 ```
-当手机支持BLE时就可以进行下一步了,接着我们需要用到蓝牙适配器，然后判断蓝牙是否开启，没开启就会提示开启。
+当手机支持BLE时就可以进行下一步了，接着我们需要用到蓝牙适配器，然后判断蓝牙是否开启，没开启就会提示开启。
 > 需要注意的是对于Android6.0上蓝牙操作需要动态申请模糊定位权限，比较简单这里就不提供代码了
 ```java
 //通过系统服务获取蓝牙管理者
@@ -158,11 +161,11 @@ if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
     startActivityForResult(enableBleIntent,REQUEST_CODE_ENABLE_BLE);
 }
 ```
-蓝牙开启成功后就可以开始搜索设备了,注意在Android API 21(Android 5.0)后修改蓝牙的扫描API，之前Android 4.3开始的扫描方法被废弃了。
+蓝牙开启成功后就可以开始搜索设备了，注意在Android API 21(Android 5.0)后修改蓝牙的扫描API，之前Android 4.3开始的扫描方法被废弃了。
 - Android 4.3 - Android 5.0扫描方法
 ```java
 private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
-    //当搜索到一个设备，这里就会回调,注意这里回调到的是子线程。
+    //当搜索到一个设备，这里就会回调，注意这里回调到的是子线程。
     @Override
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
         //在这里可以把搜索到的设备保存起来
@@ -171,7 +174,7 @@ private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.L
         //这里的rssi即信号强度，即手机与设备之间的信号强度。
         //注意，这里不是搜索到1个设备后就只回调一次这个设备，可能过个几秒又搜索到了这个设备，还会回调的
         //也就是说同一个设备可能会回调多次
-        //所以，这里可以实时刷新设备的信号强度rssi,但是保存的时候就只保存一次就行了。
+        //所以，这里可以实时刷新设备的信号强度rssi，但是保存的时候就只保存一次就行了。
         }
     };
 
@@ -187,7 +190,7 @@ private ScanCallback mScanCallback = new ScanCallback() {
     @Override
     public void onScanResult(int callbackType, ScanResult result) {
         super.onScanResult(callbackType, result);
-        //这个方法和4.3的onLeScan一样 搜索到一个设备，这里就会回调,注意这里回调到的是子线程。
+        //这个方法和4.3的onLeScan一样 搜索到一个设备，这里就会回调，注意这里回调到的是子线程。
         //通过result.getDevice()获取BluetoothDevice对象
     }
 
@@ -256,7 +259,7 @@ private BluetoothGattCallback mBluetoothGattCallback = new BluetoothGattCallback
 ```
 - **发现服务**
 
-在建立连接之后,就可以通过`BluetoothGatt`实例来进行获取服务，查找设备支持的服务列表
+在建立连接之后，就可以通过`BluetoothGatt`实例来进行获取服务，查找设备支持的服务列表
 ```java
 /**
  * 异步操作，发现服务完成时，会回调onServicesDiscovered()方法。
@@ -295,7 +298,7 @@ mGatt.getService(UUID);
 
 - **特征的读写数据**
 
-上面介绍了,BLE通讯的实质是`Characteristic`，要进行读写操作，其实就是在操作特征里的属性词条，所以要先通过`Service`获取`Characteristic`:
+上面介绍了BLE通讯的实质是`Characteristic`，要进行读写操作，其实就是在操作特征里的属性词条，所以要先通过`Service`获取`Characteristic`:
 ```java
 /* 假设 service 是从上一步获取到的一个 BluetoothGattService 实例*/
 ··· BluetoothGattService service;
@@ -336,7 +339,7 @@ public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristi
 /**
  * 写操作的回调
  * @param characteristic：  写入后的特征
- *                          注意：这里返回的特征，为设备当前的特征, 应该在该回调中，应对比该特征的内容是否符合期望值，如果与期望值不同，应该选择重发或终止写入。                    
+ *                          注意：这里返回的特征，为设备当前的特征，应该在该回调中，应对比该特征的内容是否符合期望值，如果与期望值不同，应该选择重发或终止写入。                    
  * 
  * @param status：          写入结果，成功为 GATT_SUCCESS
  */
